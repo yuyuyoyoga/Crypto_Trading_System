@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Transaction</title>
+    </head>
+    <body>
+        <h1>  - Transaction</h1>
+        <h2>Please order</h2>
+
+        <form action="/process" method="POST">
+            Quantity : <input type="number" name="qty"><br>
+            
+            
+            
+            Select Item:
+            <select name="itemOrder">
+                {% for k,i in item %}
+                <option value={{k}}>{{i}}</option>
+                {% endfor %}
+            </select><br>
+
+            <select name="Type">
+                <option value = 1>Buy</option>
+                <option value = 2>Sell</option>
+            </select><br>
+            <input type="submit" value="Process">
+        </form>
+    </body>
+
+</html>
