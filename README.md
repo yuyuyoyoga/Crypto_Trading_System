@@ -3,7 +3,7 @@
 ## Instruction: 
 1) Create a new schema in MySQL database
 2) Use the sql file to generate the table in database
-3) Open the app.py and go to line 300
+3) Open the app.py and go to line #300
 4) Change the connection paramater to your own user and password
 ```python
   def get_connection():
