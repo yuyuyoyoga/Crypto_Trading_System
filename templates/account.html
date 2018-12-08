@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <!--[if lt IE 9]>
+      <script type="text/javascript" src="https://d2ue93q3u507c2.cloudfront.net/assets/CACHE/js/cda4520075e5.js" integrity="sha384-wz91vD/gVOtbqnH8Vq+l1iui+WJD4Y3oVJgX9SNwcwSQLFrfdAKZjLPoo4SlofgC" crossorigin="anonymous"></script>
+    <![endif]-->
+    <script type="text/javascript" src="https://d2ue93q3u507c2.cloudfront.net/assets/CACHE/js/75807d9a0635.js" integrity="sha384-wnax/oGpHeQQXeL4KtJJVQ8x5qVD0IfuLOnXqQqKYeK42g7QUGKGGZ2OPU6MtodT" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Cryptocurrency</title>
+    <style>
+        #header{
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #4e4e4e;
+        }
+        .head_title{
+            display: block;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 20px 0;
+        }
+        .head_title > h1{
+            font-size: 50px;
+            margin: 0 auto;
+            font-weight: 100;
+            color: #fff;
+        }
+        .head_nav{
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .head_nav > li{
+            display: inline-block;
+        }
+        .head_nav > li > a{
+            display: block;
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+        }
+        .head_nav > li > a.hov{
+            color: #0fbe00;
+        }
+        .head_nav > li > a:hover{
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        .head_nav > li > a.hov:hover{
+            color: #12e500;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        
+        #content{
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            padding: 20px 0;
+        }
+        .con_title{
+            display: block;
+            width: 100%;
+            height: auto;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .con_title > h2{
+            display: block;
+            font-weight: 150;
+            font-size: 40px;
+            color: #0fbe00;
+        }
+        .con_title > h3{
+            display: block;
+            font-weight: 200;
+            font-size: 34px;
+            color: #0fbe00;
+        }
+        .table{
+            margin: 0 auto 20px auto;
+        }
+        .con_title > span{
+            display: block;
+            color: #767676;
+        }
+        .d-flex{
+            text-align: left;
+        }
+        .p-2.bd-highlight h3{
+            color: #0fbe00;
+
+        }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+        <div class="head_title">
+            <h1>Dodge Trading</h1>
+        </div>
+        <ul class="head_nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="overview">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transaction">Transaction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link hov" href="/">Log Out</a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        <div class="con_title">
+            <h2>Portfolio</h2>
+            <p>${{portfolio}}</p>
+            <h3>Unrealized Gain/Loss</h3>
+            <p>${{GL}}</p>  
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Average Cost</th>
+                <th scope="col">Unrealized Gain/Loss</th>
+                <th scope="col">Equity</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+            {% for account in accounts %}    
+                <tr>
+                    <td>{{account[0]}}</td>
+                    <td>{{account[1]}}</td>
+                    <td>${{account[2]}}</td>
+                    <td>${{account[3]}}</td>
+                    <td>${{account[4]}}</td>
+                    <td>${{account[5]}}</td>
+    
+                </tr>
+            {% endfor %}    
+                    
+            </tbody>
+        </table>
+        <div class="d-flex flex-column bd-highlight mb-3">
+            <div class="p-2 bd-highlight">Buying Power</div>
+            <div class="p-2 bd-highlight"><h3>${{bp}}</h3></div>
+        </div>
+
+    </div>
+    <div class="text-monospace" >
+        <h2 class="mx-auto" style="width:500px;" >Realized Gain and Loss</h2>
+        <h4 style="margin-left:10px">Total Value</h4>
+        <p style="margin-left:10px">${{rgl}}</p>
+        <br>
+        </div>
+    <div>
+            <canvas id="chart" width="1200" height="600"></canvas>
+             
+            <script>
+    
+                // bar chart data
+                var barData = {
+                labels : [{% for item in labels %}
+                            "{{item}}",
+                        {% endfor %}],
+                datasets : [
+                {
+                        fillColor: "rgba(0,0,0,0)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        bezierCurve : false,
+                        data : [{% for item in values %}
+                                {{item}},
+                                {% endfor %}]
+                }]
+                
+                }
+            
+                Chart.defaults.global.animationSteps = 50;
+                Chart.defaults.global.tooltipYPadding = 16;
+                Chart.defaults.global.tooltipCornerRadius = 0;
+                Chart.defaults.global.tooltipTitleFontStyle = "normal";
+                Chart.defaults.global.animationEasing = "easeOutBounce";
+                Chart.defaults.global.responsive = false;
+                Chart.defaults.global.scaleLineColor = "black";
+                Chart.defaults.global.scaleFontSize = 16;
+  
+            
+                // get bar chart canvas
+                var mychart = document.getElementById("chart").getContext("2d");
+            
+                steps = 10
+                max = {{maxgl}}
+                // draw bar chart
+                var LineChartDemo = new Chart(mychart).Line(barData, {
+                    scaleOverride: true,
+                    scaleSteps: steps,
+                    scaleStepWidth: Math.ceil(max / steps),
+                    scaleStartValue: {{startgl}},
+                    scaleShowVerticalLines: true,
+                    scaleShowGridLines : true,
+                    barShowStroke : true,
+                    scaleShowLabels: true,
+                    bezierCurve: false
+                    
+                });
+            
+                </script>
+     </div>
+     <br>
+     <br>
+
+     <div class="con_title">
+        <h2>Transaction History</h2>
+ 
+    </div>
+
+     <div>
+            <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Action</th>
+                <th scope="col">Trade Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Amount</th>
+                <th scope="col">Gain/Loss</th>
+                <th scope="col">Trading Date</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for history in history %}    
+                <tr>
+                    <td>{{history[0]}}</td>
+                    <td>{{history[1]}}</td>
+                    <td>${{history[2]}}</td>
+                    <td>{{history[3]}}</td>
+                    <td>${{history[4]}}</td>
+                    <td>${{history[5]}}</td>
+                    <td>{{history[6]}}</td>
+
+                </tr>
+            {% endfor %}    
+                    
+            </tbody>
+        </table>
+     </div>
+
+        
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

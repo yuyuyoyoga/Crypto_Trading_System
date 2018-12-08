@@ -1,29 +1,220 @@
-<html>
-    <head>
-        <title>Transaction</title>
-    </head>
-    <body>
-        <h1>  - Transaction</h1>
-        <h2>Please order</h2>
-
-        <form action="/process" method="POST">
-            Quantity : <input type="number" name="qty"><br>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Cryptocurrency</title>
+    <style>
+        #header{
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #4e4e4e;
+        }
+        .head_title{
+            display: block;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 20px 0;
+        }
+        .head_title > h1{
+            font-size: 50px;
+            margin: 0 auto;
+            font-weight: 100;
+            color: #fff;
+        }
+        .head_nav{
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .head_nav > li{
+            display: inline-block;
+        }
+        .head_nav > li > a{
+            display: block;
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+        }
+        .head_nav > li > a.hov{
+            color: #0fbe00;
+        }
+        .head_nav > li > a:hover{
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        .head_nav > li > a.hov:hover{
+            color: #12e500;
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        
+        #content{
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            padding: 20px 0;
+        }
+        .card.bg-dark.text-white{
+            display: none;
+        }
+        .con_form_title{
+            width: 70%;
+            height: auto;
+            display: block;
+            margin: 20px auto 30px auto;
+            text-align: left;
+        }
+        .con_form_title > h2{
+            font-weight: 100;
+            font-size: 28px;
+            display: block;
+            margin: 0 auto;
+        }
+        .con_form_gl{
+            display: block;
+            width: 70%;
+            height: auto;
+            margin: 0 auto;
+        }
+        .con_form_ecc{
+            display: block;
+            padding-bottom: 20px;
+        }
+        .con_form_ecc > span{
+            display: block;
+            text-align: left;
+            font-size: 16px;
+            margin: 0 auto 10px auto;
+        }
+        .con_form_ecc > span[for=quan]{
+            box-sizing: border-box;
+            padding: 5px 0 5px 32px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 30px auto;
+            background-image: url(static/images/icon_sort.png);
+        }
+        .con_form_ecc > span[for=sele]{
+            box-sizing: border-box;
+            padding: 5px 0 5px 30px;
+            background-repeat: no-repeat;
+            background-position: left 5px center;
+            background-size: 20px auto;
+            background-image: url(static/images/icon_select.png);
+        }
+        .con_form_ecc > input,
+        .con_form_ecc > select{
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 0 0;
+            padding: 4px 0;
+            font-size: 15px;
+        }
+        .con_form_link{
+            display: block;
+            text-align: right;
+        }
+        .con_form_link input[type=submit]{
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            -webkit-border-radius: 5px;
+            background-color: #0fbe00;
+            border: none;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body> 
+    <div id="header">
+        <div class="head_title">
+            <h1>Dodge Trading</h1>
+        </div>
+        <ul class="head_nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="overview">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="account">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transaction">Transaction</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link hov" href="/">Log Out</a>
+            </li>
+        </ul>
+    </div>
+    <div id="content">
+        
+        <div>
+            <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Symbol</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Holding Quantity</th>
+                        <th scope="col">Average Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for a in accounts %}    
+                        <tr>
+                            <td>{{a[0]}}</td>
+                            <td>${{a[2]}}</td>
+                            <td>{{a[1]}}</td>
+                            <td>${{a[3]}}</td>
             
-            
-            
-            Select Item:
-            <select name="itemOrder">
-                {% for k,i in item %}
-                <option value={{k}}>{{i}}</option>
-                {% endfor %}
-            </select><br>
+                        </tr>
+                    {% endfor %}    
+                    </tbody>
+                </table> 
 
-            <select name="Type">
-                <option value = 1>Buy</option>
-                <option value = 2>Sell</option>
-            </select><br>
-            <input type="submit" value="Process">
-        </form>
-    </body>
 
+        </div>
+        <div class="con_form">
+            <div class="con_form_title">
+                <h2>Please order</h2>
+            </div>
+            <form class="con_form_gl" action="/process" method="POST">
+                <div class="con_form_ecc">
+                    <span for="quan">Quantity:</span>
+                    <input type="number" name="qty">
+                </div>
+                <div class="con_form_ecc">
+                    <span for="sele">Select Item:</span>
+                    <select name="itemOrder">
+                        {% for k,i in item %}
+                        <option value={{k}}>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="con_form_ecc">
+                    <select name="Type">
+                        <option value = 1>Buy</option>
+                        <option value = 2>Sell</option>
+                    </select>
+                </div>
+                <div class="con_form_link">
+                    <input type="submit" value="Process">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
 </html>
