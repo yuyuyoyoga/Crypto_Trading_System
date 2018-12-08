@@ -18,6 +18,8 @@
 5) In the terminal type command: FLASK_APP=app.py flask run
 6) Copy the url:http://127.0.0.1:5000/ and open it with a browser 
 
+
+
 ## Description:
 
 This is a cryptocurrency trading system that will allow a user to buy and sell cryptocurrencies and tract trrading pfofitability and loss
