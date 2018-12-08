@@ -1,10 +1,11 @@
 # Web_System
 
-Instruction: 
+## Instruction: 
 1) Create a new schema in MySQL database
 2) Use the sql file to generate the table in database
 3) Open the app.py and go to line 300
 4) Change the connection paramater to your own user and password
+```python
   def get_connection():
       return mc.connect(
       user='YOUR_USER_NAME',
@@ -13,12 +14,13 @@ Instruction:
       database='YOUR_DATABASE_NAME',
       auth_plugin='mysql_native_password'
       )
+```
 5) In the terminal type command: FLASK_APP=app.py flask run
 6) Copy the url:http://127.0.0.1:5000/ and open it with a browser 
 
-Description:
+## Description:
 
-THis is a cryptocurrency trading system that will allow a user to buy and sell cryptocurrencies and tract trrading pfofitability and loss
+This is a cryptocurrency trading system that will allow a user to buy and sell cryptocurrencies and tract trrading pfofitability and loss
 
 #Technologies to use:
 - Python 3
